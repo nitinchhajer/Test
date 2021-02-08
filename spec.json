@@ -1,0 +1,424 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pharma API",
+        "description": "Intermediary web service for Pharma Recommendations Power App",
+        "termsOfService": "",
+        "version": "1.0.0"
+    },
+    "servers": [],
+    "components": {
+        "schemas": {
+            "Medication": {
+                "description": "A Medication",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Medication ID",
+                        "type": "number"
+                    }
+                }
+            },
+            "Patient": {
+                "description": "A Patient",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Patient ID",
+                        "type": "number"
+                    },
+                    "sponsorId": {
+                        "description": "Sponsor ID",
+                        "type": "number"
+                    },
+                    "vendorId": {
+                        "description": "Vendor ID",
+                        "type": "number"
+                    },
+                    "centerId": {
+                        "description": "Center ID",
+                        "type": "number"
+                    },
+                    "pharmacyId": {
+                        "description": "Pharmacy ID",
+                        "type": "number"
+                    },
+                    "dispensingPharmacyId": {
+                        "description": "Dispensing Pharmacy ID",
+                        "type": "number"
+                    },
+                    "firstName": {
+                        "description": "Patient First Name",
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "description": "Patient Last Name",
+                        "type": "string"
+                    },
+                    "middleInitial": {
+                        "description": "Patient Middle Initial",
+                        "type": "string"
+                    },
+                    "phone": {
+                        "description": "Patient Phone Number",
+                        "type": "string"
+                    },
+                    "gender": {
+                        "description": "Patient Gender",
+                        "type": "string"
+                    },
+                    "dob": {
+                        "description": "Patient Date of Birth",
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "description": "Patient Social Security Number",
+                        "type": "string"
+                    },
+                    "address": {
+                        "description": "Patient Street Address Line 1",
+                        "type": "string"
+                    },
+                    "address2": {
+                        "description": "Patient Street Address Line 2",
+                        "type": "string"
+                    },
+                    "city": {
+                        "description": "Patient City",
+                        "type": "string"
+                    },
+                    "state": {
+                        "description": "Patient State",
+                        "type": "string"
+                    },
+                    "zip": {
+                        "description": "Patient Zip Code",
+                        "type": "string"
+                    },
+                    "enrollmentDate": {
+                        "description": "Patient Enrollment Date",
+                        "type": "string"
+                    },
+                    "createdAt": {
+                        "description": "Date that the Patient was created",
+                        "type": "string"
+                    },
+                    "updatedAt": {
+                        "description": "Date that the Patient was most recently updated",
+                        "type": "string"
+                    },
+                    "externalIdentifiers": {
+                        "description": "Patient external IDs",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "workflowState": {
+                        "description": "String representation of the state that the Patient is in",
+                        "type": "string"
+                    },
+                    "dayBeforeNextCycle": {
+                        "description": "Date before the next cycle",
+                        "type": "string"
+                    },
+                    "nectCycleFillDate": {
+                        "description": "Date for next cycle fill",
+                        "type": "string"
+                    }
+                }
+            },
+            "Sponsor": {
+                "description": "A Sponsor",
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "description": "Sponsor ID",
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "deprecated": false,
+                "summary": "Get health for the web service",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Void"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [],
+                "tags": []
+            }
+        },
+        "/patient/search": {
+            "get": {
+                "deprecated": false,
+                "summary": "Search for a patient by name",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Patient"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "patient name",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/patient/:patient_id": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve patient by ID",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Patient ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/sponsor/:sponsor_id": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve Sponsor By Id",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Sponsor"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sponsor_id",
+                        "in": "path",
+                        "description": "Sponsor ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/sponsor/:sponsor_id/patient": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve Patients for a sponsor by sponsor_id",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Patient"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sponsor_id",
+                        "in": "path",
+                        "description": "Sponsor ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/sponsor/:sponsor_id/patient/:patient_id": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve a patient associated with a sponsor by patient_id and sponsor_id",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Patient"
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sponsor_id",
+                        "in": "path",
+                        "description": "Sponsor ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Patient ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/sponsor/:sponsor_id/patient/:patient_id/medications": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve a Patient Medications by sponsor_id and patient_id",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Medication"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "sponsor_id",
+                        "in": "path",
+                        "description": "Sponsor ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Patient ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        },
+        "/patient/:patient_id/medications": {
+            "get": {
+                "deprecated": false,
+                "summary": "Retrieve patient medications by patient_id",
+                "security": [],
+                "responses": {
+                    "200": {
+                        "description": "success response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Medication"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "patient_id",
+                        "in": "path",
+                        "description": "Patient ID",
+                        "required": true,
+                        "deprecated": false,
+                        "schema": {
+                            "type": "number"
+                        }
+                    }
+                ],
+                "tags": []
+            }
+        }
+    },
+    "tags": [],
+    "host": "localhost:8080"
+}
